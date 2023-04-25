@@ -3,15 +3,21 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { getAllPerson, selectAll } from '../store/modules/personReducer';
+import { selectAll as selectAllPeople } from '../store/modules/peopleReducer';
+import { savePerson, selectAll } from '../store/modules/personReducer';
+import { Person } from '../types/people';
 
-const Person: React.FC = () => {
+const Character: React.FC = () => {
     const { id } = useParams();
     const dispatch = useAppDispatch();
+    const people = useAppSelector(selectAllPeople);
     const personRedux = useAppSelector(selectAll);
     useEffect(() => {
         if (id) {
-            dispatch(getAllPerson(id));
+            const objPerson = people.find((item: Person) => item.name === id);
+            if (objPerson) {
+                dispatch(savePerson(objPerson));
+            }
         }
     }, [id]);
 
@@ -29,4 +35,4 @@ const Person: React.FC = () => {
     );
 };
 
-export default Person;
+export default Character;

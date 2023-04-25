@@ -5,8 +5,7 @@ import React, { useEffect } from 'react';
 
 import ListCard from '../components/ListCard';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { getAllFilms } from '../store/modules/filmsReducer';
-import { decrementar, getAllPeople, incrementar, selectAll } from '../store/modules/peopleReducer';
+import { decrementar, getAllPeople, incrementar } from '../store/modules/peopleReducer';
 
 const Home: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -25,10 +24,10 @@ const Home: React.FC = () => {
     return (
         <>
             <Grid container justifyContent="center" marginBottom={10}>
-                <Grid item margin={10}>
+                <Grid item margin={10} xs={12}>
                     <ListCard />
                 </Grid>
-                <Grid item display="flex">
+                <Grid item display="flex" justifyContent="center" xs={12}>
                     <Button
                         sx={{
                             backgroundColor: '#FCE12F',

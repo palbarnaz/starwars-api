@@ -9,11 +9,11 @@ const adapter = createEntityAdapter<Person>({
     selectId: (item) => item.name,
 });
 
-export const getAllPerson = createAsyncThunk('getPerson', async (numberPerson: string) => {
-    const response = await getPerson(`people/${numberPerson}/`);
+// export const getAllPerson = createAsyncThunk('getPerson', async (numberPerson: string) => {
+//     const response = await getPerson(`people/${numberPerson}/`);
 
-    return response;
-});
+//     return response;
+// });
 
 // export const getAllFilms = createAsyncThunk('getFilmsPerson', async (url: string) => {
 //     const urlFilm = url;
@@ -26,16 +26,20 @@ export const getAllPerson = createAsyncThunk('getPerson', async (numberPerson: s
 const personSlice = createSlice({
     name: 'person',
     initialState: adapter.getInitialState(),
-    reducers: {},
-    extraReducers: (builder) => {
-        builder.addCase(getAllPerson.fulfilled, (state, action) => {
-            adapter.removeAll(state);
-
-            adapter.setOne(state, action.payload);
-        });
+    reducers: {
+        savePerson: adapter.addOne,
+        removePerson: adapter.removeAll,
     },
+    // extraReducers: (builder) => {
+    //     builder.addCase(getAllPerson.fulfilled, (state, action) => {
+    //         adapter.removeAll(state);
+
+    //         adapter.setOne(state, action.payload);
+    //     });
+    // },
 });
 
 export default personSlice.reducer;
+export const { savePerson, removePerson } = personSlice.actions;
 
 export const { selectAll, selectById } = adapter.getSelectors((state: RootState) => state.person);
