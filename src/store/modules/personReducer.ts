@@ -2,23 +2,27 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 
 import { RootState } from '..';
 
-import { getFilms, getPerson } from '../../services/api';
-import { Person } from '../../types/people';
+import { getPerson } from '../../services/api';
+import { Person } from '../../types/Person';
 
 const adapter = createEntityAdapter<Person>({
     selectId: (item) => item.name,
 });
 
-// export const getAllPerson = createAsyncThunk('getPerson', async (numberPerson: string) => {
-//     const response = await getPerson(`people/${numberPerson}/`);
+export const getAllPerson = createAsyncThunk('getPerson', async (numberPerson: string) => {
+    const response = await getPerson(`people/${numberPerson}/`);
 
-//     return response;
-// });
+    return response;
+});
 
-// export const getAllFilms = createAsyncThunk('getFilmsPerson', async (url: string) => {
-//     const urlFilm = url;
-//     const numberFilm = urlFilm.split('films/')[1];
-//     const response = await getFilms(`films/${numberFilm}`);
+// export const getAllFilms = createAsyncThunk('getFilmsPerson', async (films: Films[]) => {
+//     const response = await Promise.all(
+//         films.map((url: any) => {
+//             const urlFilm = url;
+//             const numberFilm = urlFilm.split('films/')[1];
+//             return getFilms(`films/${numberFilm}`);
+//         })
+//     );
 
 //     return response;
 // });
@@ -28,15 +32,16 @@ const personSlice = createSlice({
     initialState: adapter.getInitialState(),
     reducers: {
         savePerson: adapter.addOne,
+
         removePerson: adapter.removeAll,
     },
-    // extraReducers: (builder) => {
-    //     builder.addCase(getAllPerson.fulfilled, (state, action) => {
-    //         adapter.removeAll(state);
+    extraReducers: (builder) => {
+        builder.addCase(getAllPerson.fulfilled, (state, action) => {
+            adapter.removeAll(state);
 
-    //         adapter.setOne(state, action.payload);
-    //     });
-    // },
+            adapter.setOne(state, action.payload);
+        });
+    },
 });
 
 export default personSlice.reducer;

@@ -3,14 +3,22 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 import { RootState } from '..';
 
 import { getPeople } from '../../services/api';
-import { Person } from '../../types/people';
+import { Person } from '../../types/Person';
 
 const adapter = createEntityAdapter<Person>({
     selectId: (item) => item.name,
 });
 
-export const getAllPeople = createAsyncThunk('getAll', async (numberPage: number) => {
-    const response = await getPeople(`people/?page=${numberPage}`);
+type GetAllThunk = {
+    numberPage: number;
+    filter?: string;
+};
+
+export const getAllPeople = createAsyncThunk('getAll', async ({ numberPage, filter }: GetAllThunk) => {
+    let params = `?page=${numberPage}`;
+    params += filter !== undefined ? `&search=${filter}` : '';
+
+    const response = await getPeople(`people/${params}`);
     return response;
 });
 

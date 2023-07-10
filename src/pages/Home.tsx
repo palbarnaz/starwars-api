@@ -1,67 +1,55 @@
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Button, Grid, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
-
-import ListCard from '../components/ListCard';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { decrementar, getAllPeople, incrementar } from '../store/modules/peopleReducer';
+import { Box, Grid, Typography } from '@mui/material';
+import React from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
-    const dispatch = useAppDispatch();
-    const { nextPage, previousPage, currentPage } = useAppSelector((state) => state.people);
-
-    useEffect(() => {
-        if (currentPage) {
-            dispatch(getAllPeople(currentPage));
-        }
-    }, [currentPage]);
-
-    // useEffect(() => {
-    //     dispatch(getAllFilms('https://swapi.dev/api/films/1/'));
-    // }, []);
-
+    const navigate = useNavigate();
     return (
-        <>
-            <Grid container justifyContent="center" marginBottom={10}>
-                <Grid item margin={10} xs={12}>
-                    <ListCard />
-                </Grid>
-                <Grid item display="flex" justifyContent="center" xs={12}>
-                    <Button
-                        sx={{
-                            backgroundColor: '#FCE12F',
-                            ':hover': {
-                                backgroundColor: '#FCE12F',
-                            },
-                            color: 'black',
-                        }}
-                        variant="contained"
-                        disabled={!previousPage}
-                        onClick={() => dispatch(decrementar())}
-                    >
-                        <ArrowBackIosIcon fontSize="small" />
-                    </Button>
-                    <Typography marginLeft="10px" marginRight="10px">
-                        {currentPage}
-                    </Typography>
-                    <Button
-                        sx={{
-                            backgroundColor: '#FCE12F',
-                            ':hover': {
-                                backgroundColor: '#FCE12F',
-                            },
-                            color: 'black',
-                        }}
-                        variant="contained"
-                        disabled={!nextPage}
-                        onClick={() => dispatch(incrementar())}
-                    >
-                        <ArrowForwardIosIcon fontSize="small" />
-                    </Button>
+        <Grid
+            container
+            height="100vh"
+            width="100vw"
+            sx={{
+                backgroundImage: ' url(/images/backg-home.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repete',
+            }}
+        >
+            <Grid item width="100%">
+                <Grid container height="60%" display="flex" flexDirection="column" justifyContent="space-between" alignContent="center">
+                    <Grid marginTop={2} display="flex" item>
+                        <Box>
+                            <img width="190px" height="90x" src="./images/starwarslogo.png" alt="" />
+                            <Typography variant="h5" textAlign="center" sx={{ letterSpacing: '.1rem', fontWeight: '100' }}>
+                                DISCOVERY
+                            </Typography>
+                        </Box>
+                    </Grid>
+
+                    <Grid item>
+                        <Box
+                            onClick={() => navigate('/characters')}
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                                cursor: 'pointer',
+                                ':hover': {
+                                    opacity: ' 0.5',
+                                },
+                            }}
+                        >
+                            <img width="100px" height="100x" src="./images/droid2.png" alt="" />
+                            <Typography variant="h5" sx={{ letterSpacing: '.1rem', fontWeight: 'bold', textShadow: 'black 0.1em 0.1em 0.4em' }}>
+                                CHARACTERS
+                            </Typography>
+                        </Box>
+                    </Grid>
                 </Grid>
             </Grid>
-        </>
+        </Grid>
     );
 };
 

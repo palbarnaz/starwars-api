@@ -3,28 +3,30 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 import { RootState } from '..';
 
 import { getFilms } from '../../services/api';
-import { Films } from '../../types/films';
+import { Films } from '../../types/Films';
 
 const adapter = createEntityAdapter<Films>({
     selectId: (item) => item.title,
 });
 
-export const getAllFilms = createAsyncThunk('getAllFilms', async (url: string) => {
-    const urlFilm = url;
-    const numberFilm = urlFilm.split('films/')[1];
-    const response = await getFilms(`films/${numberFilm}`);
+export const getAllFilms = createAsyncThunk('getFilmsPerson', async (films: Films[]) => {
+    const response = await Promise.all(
+        films.map((url: any) => {
+            const urlFilm = url;
+            const numberFilm = urlFilm.split('films/')[1];
+            return getFilms(`films/${numberFilm}`);
+        })
+    );
+
     return response;
 });
-
 const filmsSlice = createSlice({
     name: 'films',
     initialState: adapter.getInitialState(),
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(getAllFilms.fulfilled, (state, action) => {
-            console.log(state, action.payload.title);
-
-            // adapter.setOne(state, action.payload);
+        builder.addCase(getAllFilms.fulfilled, (state, action: any) => {
+            adapter.setAll(state, action.payload);
         });
     },
 });
