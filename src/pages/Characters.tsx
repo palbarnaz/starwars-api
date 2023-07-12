@@ -1,13 +1,12 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SearchIcon from '@mui/icons-material/Search';
-import { Box, Container, FormControl, Grid, IconButton, OutlinedInput, Paper, Typography } from '@mui/material';
+import { Box, Container, FormControl, Grid, IconButton, OutlinedInput, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 import ListCard from '../components/ListCard';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { decrementar, getAllPeople, incrementar, selectAll } from '../store/modules/peopleReducer';
-import { Person } from '../types/Person';
 
 const Characters: React.FC = () => {
     const dispatch = useAppDispatch();

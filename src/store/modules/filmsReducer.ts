@@ -22,11 +22,17 @@ export const getAllFilms = createAsyncThunk('getFilmsPerson', async (films: Film
 });
 const filmsSlice = createSlice({
     name: 'films',
-    initialState: adapter.getInitialState(),
+    initialState: adapter.getInitialState({
+        loading: true,
+    }),
     reducers: {},
     extraReducers: (builder) => {
+        builder.addCase(getAllFilms.pending, (state) => {
+            state.loading = true;
+        });
         builder.addCase(getAllFilms.fulfilled, (state, action: any) => {
             adapter.setAll(state, action.payload);
+            state.loading = false;
         });
     },
 });

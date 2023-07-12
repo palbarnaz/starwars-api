@@ -15,18 +15,6 @@ export const getAllPerson = createAsyncThunk('getPerson', async (numberPerson: s
     return response;
 });
 
-// export const getAllFilms = createAsyncThunk('getFilmsPerson', async (films: Films[]) => {
-//     const response = await Promise.all(
-//         films.map((url: any) => {
-//             const urlFilm = url;
-//             const numberFilm = urlFilm.split('films/')[1];
-//             return getFilms(`films/${numberFilm}`);
-//         })
-//     );
-
-//     return response;
-// });
-
 const personSlice = createSlice({
     name: 'person',
     initialState: adapter.getInitialState(),

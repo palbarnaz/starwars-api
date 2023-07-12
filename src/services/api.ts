@@ -14,6 +14,11 @@ export async function getFilms(url: string) {
     return response.data;
 }
 
+export async function getStarships(url: string) {
+    const response = await api.get(url);
+    return response.data;
+}
+
 export async function getPerson(url: string) {
     const response = await api.get(url);
     return response.data;

@@ -28,6 +28,7 @@ const peopleSlice = createSlice({
         currentPage: 1,
         nextPage: '',
         previousPage: '',
+        loading: false,
     }),
     reducers: {
         decrementar: (state) => {
@@ -39,12 +40,14 @@ const peopleSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getAllPeople.pending, (state) => {
+            state.loading = true;
             state.nextPage = '';
             state.previousPage = '';
         });
         builder.addCase(getAllPeople.fulfilled, (state, action) => {
             state.nextPage = action.payload.next;
             state.previousPage = action.payload.previous;
+            state.loading = false;
 
             adapter.setAll(state, action.payload.results);
         });
