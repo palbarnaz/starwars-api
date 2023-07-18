@@ -17,16 +17,26 @@ export const getAllPerson = createAsyncThunk('getPerson', async (numberPerson: s
 
 const personSlice = createSlice({
     name: 'person',
-    initialState: adapter.getInitialState(),
+    initialState: adapter.getInitialState({
+        loadingPerson: false,
+        error: false,
+    }),
     reducers: {
         savePerson: adapter.addOne,
 
         removePerson: adapter.removeAll,
     },
     extraReducers: (builder) => {
+        builder.addCase(getAllPerson.rejected, (state) => {
+            state.loadingPerson = false;
+            state.error = true;
+        });
+        builder.addCase(getAllPerson.pending, (state) => {
+            state.loadingPerson = true;
+        });
         builder.addCase(getAllPerson.fulfilled, (state, action) => {
             adapter.removeAll(state);
-
+            state.loadingPerson = false;
             adapter.setOne(state, action.payload);
         });
     },

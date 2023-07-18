@@ -38,9 +38,6 @@ const Home: React.FC = () => {
                                 alignItems: 'center',
                                 flexDirection: 'column',
                                 cursor: 'pointer',
-                                // ':hover': {
-                                //     opacity: ' 0.5',
-                                // },
                             }}
                         >
                             <BoxStyled />

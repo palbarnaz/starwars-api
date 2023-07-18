@@ -19,6 +19,7 @@ export const getAllPeople = createAsyncThunk('getAll', async ({ numberPage, filt
     params += filter !== undefined ? `&search=${filter}` : '';
 
     const response = await getPeople(`people/${params}`);
+
     return response;
 });
 
@@ -29,6 +30,7 @@ const peopleSlice = createSlice({
         nextPage: '',
         previousPage: '',
         loading: false,
+        error: false,
     }),
     reducers: {
         decrementar: (state) => {
@@ -39,6 +41,10 @@ const peopleSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
+        builder.addCase(getAllPeople.rejected, (state) => {
+            state.error = true;
+            state.loading = false;
+        });
         builder.addCase(getAllPeople.pending, (state) => {
             state.loading = true;
             state.nextPage = '';

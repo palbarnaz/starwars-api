@@ -1,3 +1,6 @@
+import { Films } from './Films';
+import { Starships } from './Starships';
+
 export type Person = {
     name: string;
     birth_year: string;
@@ -8,10 +11,8 @@ export type Person = {
     mass: string;
     skin_color: string;
     homeworld: string;
-    films: [];
-    species: [];
-    starships: [];
-    vehicles: [];
+    films: Films[];
+    starships: Starships[];
     url: string;
     created: string;
     edited: string;
