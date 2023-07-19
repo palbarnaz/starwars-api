@@ -1,4 +1,4 @@
-import { Films } from './Films';
+import { Films } from './Film';
 import { Starships } from './Starships';
 
 export type Person = {

@@ -3,7 +3,7 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 import { RootState } from '..';
 
 import { getFilms } from '../../services/api';
-import { Films } from '../../types/Films';
+import { Films } from '../../types/Film';
 
 const adapter = createEntityAdapter<Films>({
     selectId: (item) => item.title,

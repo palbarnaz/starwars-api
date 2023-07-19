@@ -1,7 +1,7 @@
 import { Box, Chip, Grid, Typography } from '@mui/material';
 import React from 'react';
 
-import { Films } from '../types/Films';
+import { Films } from '../types/Film';
 
 interface FilmsPersonProps {
     films: Films[];

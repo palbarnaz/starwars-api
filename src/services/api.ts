@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { Films } from '../types/Films';
+import { Films } from '../types/Film';
 import { Person } from '../types/Person';
 import { Starships } from '../types/Starships';
 
